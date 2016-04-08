@@ -1,4 +1,4 @@
-﻿namespace Frontent
+﻿namespace Frontend
 {
     using NServiceBus.Config;
     using NServiceBus.Config.ConfigurationSource;

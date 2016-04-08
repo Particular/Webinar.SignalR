@@ -1,4 +1,4 @@
-﻿namespace Frontent
+﻿namespace Frontend
 {
     using System.Web;
     using System.Web.Mvc;

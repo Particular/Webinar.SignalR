@@ -46,22 +46,21 @@
       <RoleName>Backend</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-    <ProjectReference Include="..\Frontent\Frontent.csproj">
-      <Name>Frontent</Name>
+    <ProjectReference Include="..\Frontend\Frontend.csproj">
+      <Name>Frontend</Name>
       <Project>{1235f8a1-d17b-4977-b9ab-6da53948e7f1}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
-      <RoleName>Frontent</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+      <RoleName>Frontend</RoleName>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BackendContent\" />
-    <Folder Include="FrontentContent\" />
+    <Folder Include="FrontendContent" />
   </ItemGroup>
   <ItemGroup>
     <DiagnosticsConfiguration Include="BackendContent\diagnostics.wadcfgx" />
-    <DiagnosticsConfiguration Include="FrontentContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="FrontendContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
