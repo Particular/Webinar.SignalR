@@ -1,6 +1,8 @@
 ﻿namespace Messages
 {
-    public class Pong
+    using NServiceBus;
+
+    public class Pong : IMessage
     {
     }
 }

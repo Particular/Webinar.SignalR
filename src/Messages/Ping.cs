@@ -1,6 +1,8 @@
 ﻿namespace Messages
 {
-    class Ping
+    using NServiceBus;
+
+    public class Ping : IMessage
     {
     }
 }
