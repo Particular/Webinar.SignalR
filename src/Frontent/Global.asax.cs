@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-
-namespace Frontent
+﻿namespace Frontent
 {
-    public class MvcApplication : System.Web.HttpApplication
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using NServiceBus;
+
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -16,6 +14,18 @@ namespace Frontent
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ConfigureAndStartTheBus();
+        }
+
+        void ConfigureAndStartTheBus()
+        {
+            BusConfiguration configuration = new BusConfiguration();
+            configuration.UseTransport<RabbitMQTransport>()
+                .ConnectionString("host=lab-linux;username=marcin;password=marcin");
+            configuration.UsePersistence<InMemoryPersistence>();
+            configuration.EnableInstallers();
+            Bus.Create(configuration).Start();
         }
     }
 }
