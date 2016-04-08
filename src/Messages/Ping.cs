@@ -4,5 +4,6 @@
 
     public class Ping : IMessage
     {
+        public string Text { get; set; }
     }
 }
