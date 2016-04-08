@@ -3,7 +3,6 @@
     using System.Web.Mvc;
     using Messages;
     using NServiceBus;
-    using NServiceBus.Logging;
 
     public class HomeController : Controller
     {
@@ -27,21 +26,6 @@
             return RedirectToAction("Index");
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         IBus bus;
-        readonly ILog log = LogManager.GetLogger<HomeController>();
     }
 }
