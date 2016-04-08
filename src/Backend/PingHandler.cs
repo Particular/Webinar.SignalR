@@ -1,8 +1,8 @@
 ﻿namespace Backend
 {
+    using System.Diagnostics;
     using Messages;
     using NServiceBus;
-    using NServiceBus.Logging;
 
     public class PingHandler : IHandleMessages<Ping>
     {
@@ -13,7 +13,7 @@
 
         public void Handle(Ping message)
         {
-            log.InfoFormat("PING: {0}", message.Text);
+            Trace.TraceInformation("PING: {0}", message.Text);
 
             bus.Send(new Pong
             {
@@ -21,7 +21,6 @@
             });
         }
 
-        readonly ILog log = LogManager.GetLogger<PingHandler>();
         IBus bus;
     }
 }

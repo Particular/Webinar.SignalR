@@ -7,7 +7,6 @@
     using Autofac;
     using Autofac.Integration.Mvc;
     using NServiceBus;
-    using NServiceBus.Logging;
 
     public class MvcApplication : HttpApplication
     {
@@ -35,8 +34,6 @@
                 .ConnectionString("host=lab-linux;username=marcin;password=marcin");
             configuration.UsePersistence<InMemoryPersistence>();
             configuration.EnableInstallers();
-
-            LogManager.Use<DefaultFactory>().Level(LogLevel.Debug);
 
             Bus.Create(configuration).Start();
 
