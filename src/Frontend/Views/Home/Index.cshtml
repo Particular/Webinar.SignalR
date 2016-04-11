@@ -2,11 +2,6 @@
     ViewBag.Title = "Messaging Ping Pong";
 }
 
-<div class="jumbotron">
-    <h1>Messaging Ping Pong</h1>
-    <p class="lead">Messaging Ping Pong is a sample application that demonstrates how to connect frontend to backend using SignalR and messaging.</p>
-</div>
-
 <div class="row">
     <div class="col-md-6">
         <h2>Ping</h2>
@@ -28,7 +23,9 @@
 @section scripts
 {
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+
     <script src="~/signalr/hubs"></script>
+
     <script>
         $(function() {
             var pingPongHub = $.connection.pingPongHub;
@@ -43,9 +40,17 @@
             $.connection.hub.start().done(function() {
                 $("#send").click(function() {
                     pingPongHub.server.ping($("#pingText").val());
+                    $("#connectionId").text("Your connection ID is " + $.connection.hub.id).removeClass("alert-warning").addClass("alert-success");
                     $("pingText").val("").focus();
                 });
             });
+            $.connection.hub.reconnected(function() {
+                $("#connectionId").text("You have been reconnected. Your connection ID is " + $.connection.hub.id).removeClass("alert-warning").addClass("alert-success");
+            });
+            $.connection.hub.disconnected(function() {
+                $("#connectionId").text("You have been disconnected.").removeClass("alert-success").addClass("alert-warning");
+            });
         });
     </script>
+
 }
