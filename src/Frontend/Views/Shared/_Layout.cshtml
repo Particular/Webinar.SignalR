@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Messaging Ping Pong</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+<div class="container body-content">
+    <div class="jumbotron">
+        <h1>Messaging Ping Pong</h1>
+        <p class="lead">Messaging Ping Pong is a sample application that demonstrates how to connect frontend to backend using SignalR and messaging.</p>
+    </div>
+    <div class="alert alert-warning" id="connectionId">
+        Frontend is not connected to the backend just yet
+    </div>
+    <hr/>
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Messaging Ping Pong</p>
+    </footer>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", false)
+</body>
+</html>

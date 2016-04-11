@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Messaging Ping Pong";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Ping</h2>
+        <p>
+            <input type="text" id="pingText" class="form-control" placeholder="Text to ping..."/>
+        </p>
+        <p>
+            <button type="button" class="btn btn-primary" id="send">Send</button>
+        </p>
+    </div>
+    <div class="col-md-6">
+        <h2>Pong</h2>
+        <div id="pongs">
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+
+    <script src="~/signalr/hubs"></script>
+
+    <script>
+        $(function() {
+            var pingPongHub = $.connection.pingPongHub;
+
+            pingPongHub.client.pong = function(pongText) {
+                $("<div></div>", {
+                    "class": "alert alert-success",
+                    text: pongText
+                }).appendTo("#pongs");
+            };
+
+            $.connection.hub.start().done(function() {
+                $("#send").click(function() {
+                    pingPongHub.server.ping($("#pingText").val());
+                    $("#connectionId").text("Your connection ID is " + $.connection.hub.id).removeClass("alert-warning").addClass("alert-success");
+                    $("pingText").val("").focus();
+                });
+            });
+            $.connection.hub.reconnected(function() {
+                $("#connectionId").text("You have been reconnected. Your connection ID is " + $.connection.hub.id).removeClass("alert-warning").addClass("alert-success");
+            });
+            $.connection.hub.disconnected(function() {
+                $("#connectionId").text("You have been disconnected.").removeClass("alert-success").addClass("alert-warning");
+            });
+        });
+    </script>
+
+}
