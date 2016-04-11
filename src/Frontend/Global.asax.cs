@@ -5,7 +5,8 @@
     using System.Web.Optimization;
     using System.Web.Routing;
     using Autofac;
-    using Autofac.Integration.Mvc;
+    using Autofac.Integration.SignalR;
+    using Microsoft.AspNet.SignalR;
     using NServiceBus;
 
     public class MvcApplication : HttpApplication
@@ -24,7 +25,7 @@
         {
             ContainerBuilder builder = new ContainerBuilder();
 
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterHubs(typeof(MvcApplication).Assembly);
 
             IContainer container = builder.Build();
 
@@ -37,7 +38,7 @@
 
             Bus.Create(configuration).Start();
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            GlobalHost.DependencyResolver = new AutofacDependencyResolver(container);
         }
     }
 }
