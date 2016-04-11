@@ -31,8 +31,7 @@
 
             BusConfiguration configuration = new BusConfiguration();
             configuration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
-            configuration.UseTransport<RabbitMQTransport>()
-                .ConnectionString("host=lab-linux;username=marcin;password=marcin");
+            configuration.UseTransport<RabbitMQTransport>();
             configuration.UsePersistence<InMemoryPersistence>();
             configuration.EnableInstallers();
 

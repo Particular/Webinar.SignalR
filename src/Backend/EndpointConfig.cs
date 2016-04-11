@@ -6,8 +6,7 @@
     {
         public void Customize(BusConfiguration configuration)
         {
-            configuration.UseTransport<RabbitMQTransport>()
-                .ConnectionString("host=lab-linux;username=marcin;password=marcin");
+            configuration.UseTransport<RabbitMQTransport>();
             configuration.UsePersistence<InMemoryPersistence>();
             configuration.EnableInstallers();
         }
