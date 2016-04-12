@@ -11,6 +11,8 @@
 
     public class MvcApplication : HttpApplication
     {
+        IStartableBus bus;
+
         protected void Application_Start()
         {
             ConfigureAndStartTheBus();
@@ -35,9 +37,15 @@
             configuration.UsePersistence<InMemoryPersistence>();
             configuration.EnableInstallers();
 
-            Bus.Create(configuration).Start();
+            bus = Bus.Create(configuration);
+            bus.Start();
 
             GlobalHost.DependencyResolver = new AutofacDependencyResolver(container);
+        }
+
+        protected void Application_End()
+        {
+            bus.Dispose();
         }
     }
 }
