@@ -6,11 +6,14 @@
     using System.Web.Routing;
     using Autofac;
     using Autofac.Integration.SignalR;
+    using Backend;
     using Microsoft.AspNet.SignalR;
     using NServiceBus;
 
     public class MvcApplication : HttpApplication
     {
+        IStartableBus bus;
+
         protected void Application_Start()
         {
             ConfigureAndStartTheBus();
@@ -31,13 +34,20 @@
 
             BusConfiguration configuration = new BusConfiguration();
             configuration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
-            configuration.UseTransport<RabbitMQTransport>();
+            configuration.UseTransport<RabbitMQTransport>()
+                .ConnectionString(RabbitMqConnectionString.Value);
             configuration.UsePersistence<InMemoryPersistence>();
             configuration.EnableInstallers();
 
-            Bus.Create(configuration).Start();
+            bus = Bus.Create(configuration);
+            bus.Start();
 
             GlobalHost.DependencyResolver = new AutofacDependencyResolver(container);
+        }
+
+        protected void Application_End()
+        {
+            bus.Dispose();
         }
     }
 }

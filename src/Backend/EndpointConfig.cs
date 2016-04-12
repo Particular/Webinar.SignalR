@@ -6,7 +6,8 @@
     {
         public void Customize(BusConfiguration configuration)
         {
-            configuration.UseTransport<RabbitMQTransport>();
+            configuration.UseTransport<RabbitMQTransport>()
+                .ConnectionString(RabbitMqConnectionString.Value);
             configuration.UsePersistence<InMemoryPersistence>();
             configuration.EnableInstallers();
         }
