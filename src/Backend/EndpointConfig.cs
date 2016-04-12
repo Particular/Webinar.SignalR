@@ -7,7 +7,7 @@
         public void Customize(BusConfiguration configuration)
         {
             configuration.UseTransport<RabbitMQTransport>()
-                .ConnectionString("ADD_YOUR_RABBITMQ_CONNECTION_STRING_HERE");
+                .ConnectionString(RabbitMqConnectionString.Value);
             configuration.UsePersistence<InMemoryPersistence>();
             configuration.EnableInstallers();
         }

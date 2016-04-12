@@ -6,6 +6,7 @@
     using System.Web.Routing;
     using Autofac;
     using Autofac.Integration.SignalR;
+    using Backend;
     using Microsoft.AspNet.SignalR;
     using NServiceBus;
 
@@ -34,7 +35,7 @@
             BusConfiguration configuration = new BusConfiguration();
             configuration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
             configuration.UseTransport<RabbitMQTransport>()
-                .ConnectionString("ADD_YOUR_RABBITMQ_CONNECTION_STRING_HERE");
+                .ConnectionString(RabbitMqConnectionString.Value);
             configuration.UsePersistence<InMemoryPersistence>();
             configuration.EnableInstallers();
 
