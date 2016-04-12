@@ -20,6 +20,25 @@
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="usernameDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Can you introduce yourself, please?</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <label for="nameText" class="control-label">My name is:</label>
+                    <input type="text" class="form-control" id="nameText"/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="loginButton">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts
 {
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
@@ -28,28 +47,34 @@
 
     <script>
         $(function() {
-            var pingPongHub = $.connection.pingPongHub;
+            $("#loginButton").click(function() {
+                var pingPongHub = $.connection.pingPongHub;
 
-            pingPongHub.client.pong = function(pongText) {
-                $("<div></div>", {
-                    "class": "alert alert-success",
-                    text: pongText
-                }).appendTo("#pongs");
-            };
+                $.connection.hub.qs = { "username": $("#nameText").val() };
+                pingPongHub.client.pong = function(pongText) {
+                    $("<div></div>", {
+                        "class": "alert alert-success",
+                        text: pongText
+                    }).appendTo("#pongs");
+                };
 
-            $.connection.hub.start().done(function() {
-                $("#send").click(function() {
-                    pingPongHub.server.ping($("#pingText").val());
-                    $("#connectionId").text("Your connection ID is " + $.connection.hub.id).removeClass("alert-warning").addClass("alert-success");
-                    $("pingText").val("").focus();
+                $.connection.hub.start().done(function() {
+                    $("#send").click(function() {
+                        pingPongHub.server.ping($("#pingText").val());
+                        $("#connectionId").text("Your connection ID is " + $.connection.hub.id).removeClass("alert-warning").addClass("alert-success");
+                        $("#pingText").val("").focus();
+                    });
                 });
+                $.connection.hub.reconnected(function() {
+                    $("#connectionId").text("You have been reconnected. Your connection ID is " + $.connection.hub.id).removeClass("alert-warning").addClass("alert-success");
+                });
+                $.connection.hub.disconnected(function() {
+                    $("#connectionId").text("You have been disconnected.").removeClass("alert-success").addClass("alert-warning");
+                });
+                $("#usernameDialog").modal("hide");
             });
-            $.connection.hub.reconnected(function() {
-                $("#connectionId").text("You have been reconnected. Your connection ID is " + $.connection.hub.id).removeClass("alert-warning").addClass("alert-success");
-            });
-            $.connection.hub.disconnected(function() {
-                $("#connectionId").text("You have been disconnected.").removeClass("alert-success").addClass("alert-warning");
-            });
+
+            $("#usernameDialog").modal("show");
         });
     </script>
 
