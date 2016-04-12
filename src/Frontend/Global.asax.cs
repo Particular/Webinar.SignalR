@@ -12,8 +12,6 @@
 
     public class MvcApplication : HttpApplication
     {
-        IStartableBus bus;
-
         protected void Application_Start()
         {
             ConfigureAndStartTheBus();
@@ -49,5 +47,7 @@
         {
             bus.Dispose();
         }
+
+        IStartableBus bus;
     }
 }

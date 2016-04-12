@@ -10,10 +10,10 @@
     {
         public void Handle(Pong message)
         {
-            Trace.TraceInformation("RECEIVED PONG: {0}", message.Text);
+            Trace.TraceInformation("RECEIVED PONG: {0} from {1}", message.Text, message.Username);
 
             IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<PingPongHub>();
-            hubContext.Clients.All.pong(message.Text);
+            hubContext.Clients.Group(message.Username).pong(message.Text);
         }
     }
 }

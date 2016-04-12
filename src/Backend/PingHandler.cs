@@ -13,14 +13,15 @@
 
         public void Handle(Ping message)
         {
-            Trace.TraceInformation("RECEIVED PING: {0}", message.Text);
+            Trace.TraceInformation("RECEIVED PING: {0} from {1}", message.Text, message.Username);
 
             bus.Send(new Pong
             {
-                Text = message.Text
+                Text = message.Text,
+                Username = message.Username
             });
 
-            Trace.TraceInformation("SENT PONG: {0}", message.Text);
+            Trace.TraceInformation("SENT PONG: {0} to {1}", message.Text, message.Username);
         }
 
         IBus bus;

@@ -15,7 +15,19 @@
 
         public override Task OnConnected()
         {
-            Trace.TraceInformation("[{0}] CLIENT CONNECTED", Context.ConnectionId);
+            var username = Context.QueryString["username"];
+
+            if (!string.IsNullOrWhiteSpace(username))
+            {
+                Groups.Add(Context.ConnectionId, username);
+
+                Trace.TraceInformation("[{0}] CLIENT CONNECTED: {1}", Context.ConnectionId, username);
+            }
+            else
+            {
+                Trace.TraceInformation("[{0}] CLIENT CONNECTED: ANONYMOUS", Context.ConnectionId);
+            }
+
             return base.OnConnected();
         }
 
@@ -33,12 +45,18 @@
 
         public void Ping(string text)
         {
-            Trace.TraceInformation("SENDING PING: {0}", text);
+            var username = Context.QueryString["username"];
 
-            bus.Send(new Ping
+            if (!string.IsNullOrWhiteSpace(username))
             {
-                Text = text
-            });
+                Trace.TraceInformation("SENDING PING: {0} to {1}", text, username);
+
+                bus.Send(new Ping
+                {
+                    Text = text,
+                    Username = username
+                });
+            }
         }
 
         IBus bus;
