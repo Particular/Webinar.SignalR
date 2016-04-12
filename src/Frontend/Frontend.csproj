@@ -266,6 +266,10 @@
       <Project>{51d88507-beb6-4b16-8916-85cc0b861b0b}</Project>
       <Name>Messages</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{2522D520-A81B-4E5A-9A88-E858B447A262}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
