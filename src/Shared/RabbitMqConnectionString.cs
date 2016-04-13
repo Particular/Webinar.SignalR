@@ -1,4 +1,4 @@
-﻿namespace Backend
+﻿namespace Shared
 {
     public class RabbitMqConnectionString
     {

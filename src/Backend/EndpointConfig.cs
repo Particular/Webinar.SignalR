@@ -1,6 +1,7 @@
 ﻿namespace Backend
 {
     using NServiceBus;
+    using Shared;
 
     public class EndpointConfig : IConfigureThisEndpoint, AsA_Worker
     {

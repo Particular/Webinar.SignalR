@@ -1,4 +1,4 @@
-﻿namespace Backend
+﻿namespace Shared
 {
     using NServiceBus.Config;
     using NServiceBus.Config.ConfigurationSource;

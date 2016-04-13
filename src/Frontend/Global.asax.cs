@@ -6,9 +6,9 @@
     using System.Web.Routing;
     using Autofac;
     using Autofac.Integration.SignalR;
-    using Backend;
     using Microsoft.AspNet.SignalR;
     using NServiceBus;
+    using Shared;
 
     public class MvcApplication : HttpApplication
     {
