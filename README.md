@@ -2,7 +2,7 @@
 
 This repository contains sample code demonstrating how to connect frontend to backend using SignalR and messaging.
 
-## Prerequites
+## Prerequisites
 
 In order to run the sample code, several infrastructure components need to be installed:
 
@@ -14,16 +14,16 @@ Please refer to documentation of each individual component for download and setu
 
 ## Configuration
 
-### Sample Solution
-
-Configure the `CloudService` project as the startup project and configre the project to run the full Azure Emulator (requires elevation) so that multiple instances of the front-end and back-end projects can be run in a lod balanced environment.
-
 ### RabbitMQ connection string
 
-RabbitMQ connection string can be set using `Backend.RabbitMqConnectionString.Value` property in the `Shared` project.
+RabbitMQ connection string can be configured by setting the `Value` property of the `Backend.RabbitMqConnectionString` class in the `Shared` project.
 
-### Redis connection data
+### Redis connection parameters
 
-Redis connection data such as server address, port, and password can be set setting appropriate properties of the `Frontend.Config.RedisConnectionData` class in the `Frontend` project.
+Redis connection parameters such as server address, port, and password can be configured by setting relevant properties of the `Frontend.Config.RedisConnectionData` class in the `Frontend` project.
 
-If Redis is run locally with no security configured simply set the `Password` value to an empty string.
+When running Redis locally with no password required, the `Password` property should be set to an empty string.
+
+### Azure Cloud Services configuration
+
+In order to run the sample code locally using Azure Compute Emulator, set the `CloudService` project as the startup project and configure it to run using the full emulator. This allows multiple instances of the frontend Web app and the backend service to execute in a load balanced environment (as opposed to the express emulator which is limited to a single instance). Full emulator requires Visual Studio to run with elevated privileges.
