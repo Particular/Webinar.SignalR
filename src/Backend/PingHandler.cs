@@ -15,7 +15,7 @@
         {
             Trace.TraceInformation("RECEIVED PING: {0} from {1}", message.Text, message.Username);
 
-            bus.Send(new Pong
+            bus.Reply(new Pong
             {
                 Text = message.Text,
                 Username = message.Username
