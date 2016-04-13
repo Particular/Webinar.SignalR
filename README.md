@@ -14,6 +14,10 @@ Please refer to documentation of each individual component for download and setu
 
 ## Configuration
 
+### Sample Solution
+
+Configure the `CloudService` project as the startup project and configre the project to run the full Azure Emulator (requires elevation) so that multiple instances of the front-end and back-end projects can be run in a lod balanced environment.
+
 ### RabbitMQ connection string
 
 RabbitMQ connection string can be set using `Backend.RabbitMqConnectionString.Value` property in the `Shared` project.
@@ -21,3 +25,5 @@ RabbitMQ connection string can be set using `Backend.RabbitMqConnectionString.Va
 ### Redis connection data
 
 Redis connection data such as server address, port, and password can be set setting appropriate properties of the `Frontend.Config.RedisConnectionData` class in the `Frontend` project.
+
+If Redis is run locally with no security configured simply set the `Password` value to an empty string.
