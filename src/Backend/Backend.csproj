@@ -96,7 +96,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigureMessageEndpointMappings.cs" />
     <Compile Include="EndpointConfig.cs" />
     <Compile Include="PingHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
