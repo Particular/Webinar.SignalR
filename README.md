@@ -16,7 +16,7 @@ Please refer to documentation of each individual component for download and setu
 
 ### RabbitMQ connection string
 
-RabbitMQ connection string can be configured by setting the `Value` property of the `Backend.RabbitMqConnectionString` class in the `Shared` project.
+RabbitMQ connection string can be configured by setting the `Value` property of the `Shared.RabbitMqConnectionString` class in the `Shared` project.
 
 ### Redis connection parameters
 
