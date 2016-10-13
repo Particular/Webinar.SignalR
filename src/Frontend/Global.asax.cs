@@ -30,24 +30,27 @@
 
             IContainer container = builder.Build();
 
-            BusConfiguration configuration = new BusConfiguration();
+            EndpointConfiguration configuration = new EndpointConfiguration("Frontend");
             configuration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
             configuration.UseTransport<RabbitMQTransport>()
                 .ConnectionString(RabbitMqConnectionString.Value);
             configuration.UsePersistence<InMemoryPersistence>();
             configuration.EnableInstallers();
 
-            bus = Bus.Create(configuration);
-            bus.Start();
+            endpoint = Endpoint.Start(configuration).GetAwaiter().GetResult();
+
+            ContainerBuilder updater = new ContainerBuilder();
+            updater.RegisterInstance(endpoint).As<IMessageSession>().ExternallyOwned();
+            updater.Update(container);
 
             GlobalHost.DependencyResolver = new AutofacDependencyResolver(container);
         }
 
         protected void Application_End()
         {
-            bus.Dispose();
+            endpoint.Stop().GetAwaiter().GetResult();
         }
 
-        IStartableBus bus;
+        IEndpointInstance endpoint;
     }
 }

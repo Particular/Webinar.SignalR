@@ -8,9 +8,9 @@
 
     public class PingPongHub : Hub
     {
-        public PingPongHub(IBus bus)
+        public PingPongHub(IMessageSession messageSession)
         {
-            this.bus = bus;
+            this.messageSession = messageSession;
         }
 
         public override Task OnConnected()
@@ -43,7 +43,7 @@
             return base.OnReconnected();
         }
 
-        public void Ping(string text)
+        public async Task Ping(string text)
         {
             var username = Context.QueryString["username"];
 
@@ -51,7 +51,7 @@
             {
                 Trace.TraceInformation("SENDING PING: {0} to {1}", text, username);
 
-                bus.Send(new Ping
+                await messageSession.Send(new Ping
                 {
                     Text = text,
                     Username = username
@@ -59,6 +59,6 @@
             }
         }
 
-        IBus bus;
+        IMessageSession messageSession;
     }
 }
