@@ -1,28 +1,22 @@
 ﻿namespace Backend
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using Messages;
     using NServiceBus;
 
     public class PingHandler : IHandleMessages<Ping>
     {
-        public PingHandler(IBus bus)
-        {
-            this.bus = bus;
-        }
-
-        public void Handle(Ping message)
+        public async Task Handle(Ping message, IMessageHandlerContext context)
         {
             Trace.TraceInformation("RECEIVED PING: {0}", message.Text);
 
-            bus.Reply(new Pong
+            await context.Reply(new Pong
             {
                 Text = message.Text
             });
 
             Trace.TraceInformation("SENT PONG: {0}", message.Text);
         }
-
-        IBus bus;
     }
 }

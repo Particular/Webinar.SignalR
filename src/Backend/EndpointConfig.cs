@@ -5,7 +5,7 @@
 
     public class EndpointConfig : IConfigureThisEndpoint, AsA_Worker
     {
-        public void Customize(BusConfiguration configuration)
+        public void Customize(EndpointConfiguration configuration)
         {
             configuration.UseTransport<RabbitMQTransport>()
                 .ConnectionString(RabbitMqConnectionString.Value);

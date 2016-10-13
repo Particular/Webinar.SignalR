@@ -237,3 +237,6 @@ _Pvt_Extensions
 
 # NServiceBus logs
 nsb_log_*.txt
+
+# Roslyn CodeDOM
+Microsoft.CodeDom.Providers.DotNetCompilerPlatform.*
