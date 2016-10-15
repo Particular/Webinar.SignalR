@@ -13,7 +13,7 @@
         {
             Trace.TraceInformation("RECEIVED PONG: {0} from {1}", message.Text, message.Username);
 
-            IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<PingPongHub>();
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<PingPongHub>();
             hubContext.Clients.Group(message.Username).pong(message.Text);
 
             return Task.FromResult(0);
