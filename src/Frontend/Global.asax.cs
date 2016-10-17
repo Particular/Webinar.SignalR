@@ -24,6 +24,8 @@
 
         void ConfigureAndStartTheBus()
         {
+            RabbitMqConnectionString.EnsureConnectionStringIsProvided();
+
             var builder = new ContainerBuilder();
 
             builder.RegisterHubs(typeof(MvcApplication).Assembly);
