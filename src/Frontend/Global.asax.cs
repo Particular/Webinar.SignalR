@@ -24,13 +24,13 @@
 
         void ConfigureAndStartTheBus()
         {
-            ContainerBuilder builder = new ContainerBuilder();
+            var builder = new ContainerBuilder();
 
             builder.RegisterHubs(typeof(MvcApplication).Assembly);
 
-            IContainer container = builder.Build();
+            var container = builder.Build();
 
-            EndpointConfiguration configuration = new EndpointConfiguration("Frontend");
+            var configuration = new EndpointConfiguration("Frontend");
             configuration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
             configuration.UseTransport<RabbitMQTransport>()
                 .ConnectionString(RabbitMqConnectionString.Value);
@@ -39,7 +39,7 @@
 
             endpoint = Endpoint.Start(configuration).GetAwaiter().GetResult();
 
-            ContainerBuilder updater = new ContainerBuilder();
+            var updater = new ContainerBuilder();
             updater.RegisterInstance(endpoint).As<IMessageSession>().ExternallyOwned();
             updater.Update(container);
 
