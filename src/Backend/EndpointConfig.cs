@@ -10,6 +10,7 @@
             configuration.UseTransport<RabbitMQTransport>()
                 .ConnectionString(RabbitMqConnectionString.Value);
             configuration.UsePersistence<InMemoryPersistence>();
+            configuration.SendFailedMessagesTo("error");
             configuration.EnableInstallers();
         }
     }
