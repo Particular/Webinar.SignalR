@@ -6,6 +6,7 @@
     using System.Web.Routing;
     using Autofac;
     using Autofac.Integration.SignalR;
+    using Messages;
     using Microsoft.AspNet.SignalR;
     using NServiceBus;
     using Shared;
@@ -35,8 +36,10 @@
             var configuration = new EndpointConfiguration("Frontend");
             configuration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
             configuration.UseTransport<RabbitMQTransport>()
-                .ConnectionString(RabbitMqConnectionString.Value);
+                .ConnectionString(RabbitMqConnectionString.Value)
+                .Routing().RouteToEndpoint(typeof(Ping), "Backend");
             configuration.UsePersistence<InMemoryPersistence>();
+            configuration.SendFailedMessagesTo("error");
             configuration.EnableInstallers();
 
             endpoint = Endpoint.Start(configuration).GetAwaiter().GetResult();
